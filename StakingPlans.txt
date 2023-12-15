@@ -1,0 +1,1777 @@
+ADMIN RTK QUERY --->
+ADDPLAN, GETPLAN, UPDATE PLAN
+
+addplan: builder.mutation({
+                    query: (body) => ({
+                        url: 'admin/stakingplan',
+                        method: 'POST',
+                        body
+                    }),
+                    invalidatesTags: ['Task']
+                }),
+                
+            planData: builder.query({
+            query: () => ({
+                method: 'GET',
+                url:'/admin/planlist'
+            }),
+            providesTags: ['Task'], }),
+
+            getplan: builder.mutation({
+                query: (body) => ({
+                    url: 'admin/getplan',
+                    method: 'POST',
+                    body
+                }),
+                invalidatesTags: ['Task']
+            }),
+            updateplan: builder.mutation({
+                query: (body) => ({
+                    url: 'admin/updateplan',
+                    method: 'POST',
+                    body
+                }),
+                invalidatesTags: ['Task']
+            }),
+      
+   ///////////////////////////////////////////////
+   frontend ADD STAKING PLAN--->
+   // import React from 'react'
+// import {  useNavigate } from 'react-router-dom'
+// import {
+//   CButton,
+//   CCard,
+//   CCardBody,
+//   CCardGroup,
+//   CCol,
+//   CContainer,
+//   CForm,
+//   CFormInput,
+//   CInputGroup,
+//   CInputGroupText,
+//   CRow,
+// } from '@coreui/react'
+// import CIcon from '@coreui/icons-react'
+// import { useForm } from 'react-hook-form'
+// import { BiRightArrowAlt } from "react-icons/bi"
+// import { ToastContainer, toast } from 'react-toastify';
+// import { yupResolver } from '@hookform/resolvers/yup'
+// import * as yup from 'yup'
+// import { MdOutlinePublishedWithChanges } from "react-icons/md";
+// import { MdCalendarMonth } from "react-icons/md";
+// import { AiOutlinePercentage } from "react-icons/ai";
+// import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
+
+
+
+
+
+// const schema = yup.object().shape({
+//     planname:yup.string().required(' plan Name is cannot be empty.').min(3, 'minimum 3 chatacter are allowed').max(15, 'Name is reached maximum limit!')
+//     .matches(
+//         /^[A-Z -]+$/,
+//         'Enter Valid Name Only'
+//     ),
+//     planmonth: yup.string().required(' month is required.').min(3, 'minimum 3 chatacter are allowed').max(3, 'Name is reached maximum limit!')
+//     .matches (
+//         /^[0-9 -]+$/,'Enter valid amount'
+//     ),
+//     planinterest:yup.string().required('enter interest amount')
+//     .matches (
+//         /^[0-9 -]+$/,'Enter valid amount'
+//     )
+ 
+// })
+
+// const Addstaking = () => {
+ 
+//   const adminId=localStorage.getItem('AdminId')
+//   const navigate=useNavigate()
+//   const {
+//     register,
+//     handleSubmit,
+//     reset,
+//     formState: { errors },
+//   } = useForm({
+//     resolver: yupResolver(schema),
+//     mode: 'all',
+//   })
+
+
+//   const onSubmit = async(data) => {
+//     console.log(data);
+    
+// //    const response=await handletoken({data, id:adminId})
+
+// //    try {
+// //     if (response.error) {
+// //         toast.error(response.error.data.message)
+// //       } else {
+// //         toast.success(response.data.message, {
+// //           position: toast.POSITION.TOP_CENTER,
+// //           autoClose:false
+// //         });
+// //         reset()
+// //         setTimeout(() => {
+// //             navigate('/dashboard')  
+// //         },2900);
+// //       }  
+
+// //  }
+// // catch (error) {
+// //     console.log(error.message);
+// // }
+//   }
+
+//   return (
+//     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+//       <CContainer>
+//         <CRow className="justify-content-center">
+//           <CCol md={5}>
+//             <CCardGroup>
+//               <CCard className="p-4">
+//                 <CCardBody>
+//                   <form onSubmit={handleSubmit(onSubmit)}>
+//                     <h2 className='text-primary'>Add Staking Plan <MdOutlinePublishedWithChanges /></h2>
+//                     <p className=" text-primary input-group-text">staking details</p>
+//                     <div className="form-row">
+//                       <div className="form-group col">
+                        
+//                       <label className=" fs-5">Plan Name</label>
+//                         <div className="input-group">
+//                           <input
+//                             name="planname"
+//                             type='text'
+//                             className={`form-control ${errors.planname ? 'is-invalid' : ''}`}
+//                             {...register("planname")}
+//                             placeholder="Enter plan name"
+//                           />
+//                           <span className="input-group-text rounded-end-3"><MdOutlineDriveFileRenameOutline />
+
+//                           </span>
+//                           <div className="invalid-feedback">{errors?.planname?.message}
+//                           </div>
+//                         </div>
+//                     </div>
+//                     </div>
+                   
+//                     <label className=" fs-5">Month</label>
+//                         <div className="input-group">
+//                           <input
+//                             name="planmonth"
+//                             type='text'
+//                             className={`form-control ${errors. planmonth ? 'is-invalid' : ''}`}
+//                             {...register("planmonth")}
+//                             placeholder="Enter month"
+//                           />
+//                           <span className="input-group-text rounded-end-3"><MdCalendarMonth />
+//                           </span>
+//                           <div className="invalid-feedback">{errors?. planmonth?.message}
+//                           </div>
+//                         </div>
+                        
+                  
+                
+                    
+//                         <label className=" fs-5">Interest</label>
+//                         <div className="input-group">
+//                           <input
+//                             name=" planinterest"
+//                             type='text'
+//                             className={`form-control ${errors. planinterest ? 'is-invalid' : ''}`}
+//                             {...register("planinterest")}
+//                             placeholder="Enter interest"
+//                           />
+//                           <span className="input-group-text rounded-end-3"><AiOutlinePercentage />
+//                           </span>
+//                           <div className="invalid-feedback">{errors?.planinterest?.message}
+//                           </div>
+//                         </div>
+                    
+                    
+
+//                     <div className="form-group d-grid mt-4">
+//                       <button type="submit" className="btn btn-primary mr-1">
+//                        Approve <BiRightArrowAlt />
+//                       </button>
+//                     </div>
+   
+//                   </form>
+//                 </CCardBody>
+//               </CCard>
+             
+//               <ToastContainer/>
+//             </CCardGroup>
+//           </CCol>
+//         </CRow>
+//       </CContainer>
+//     </div>
+//   )
+// }
+
+// export default Addstaking 
+
+
+
+
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { ToastContainer, toast } from 'react-toastify';
+import * as yup from 'yup';
+import { BiRightArrowAlt } from 'react-icons/bi';
+import { MdOutlinePublishedWithChanges } from "react-icons/md";
+import { MdCalendarMonth } from "react-icons/md";
+import { AiOutlinePercentage } from "react-icons/ai";
+import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
+
+
+import {
+  CButton,
+  CCard,
+  CCardBody,
+  CCardGroup,
+  CCol,
+  CContainer,
+  CFormInput,
+  CInputGroup,
+  CInputGroupText,
+  CRow,
+} from '@coreui/react';
+import { useAddplanMutation } from 'src/appstore_admin/service_admin/apiquery_admin';
+
+const schema = yup.object().shape({
+  planname: yup
+    .string()
+    .required('Plan Name is required.')
+    .min(3, 'Minimum 3 characters are allowed.')
+    .max(15, 'Name has reached the maximum limit!')
+    .matches(/^[A-Z -]+$/, 'Enter a valid name only'),
+  planmonth: yup
+    .string()
+    .required('Month is required.')
+    .matches(/^[0-9 -]+$/, 'Enter a valid amount'),
+    planinterest: yup
+    .string()
+    .required('Enter interest amount')
+    .matches(/^[0-9]+(\.[0-9]+)?$/, 'Enter a valid amount'),
+
+});
+
+const Addstaking = () => {
+  const adminId = localStorage.getItem('AdminId');
+  const [handleplan]=useAddplanMutation()
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    mode: 'all',
+  });
+
+  const onSubmit = async (data) => {
+    const response=await handleplan({data,id:adminId})
+    try {
+        if (response.error) {
+            toast.error(response.error.data.message)
+          } else {
+            toast.success(response.data.message, {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose:false
+            });
+            reset()
+            setTimeout(() => {
+                navigate('/dashboard')  
+            },4000);
+          }  
+    
+     }
+    catch (error) {
+        console.log(error.message);
+    }
+
+
+
+  };
+
+  return (
+    <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+      <CContainer>
+        <CRow className="justify-content-center">
+          <CCol md={9}>
+            <CCardGroup>
+              <CCard className="p-4">
+                <CCardBody>
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <h2 className="text-primary">
+                      Add Staking Plan <MdOutlinePublishedWithChanges />
+                    </h2>
+                    <p className="text-primary input-group-text">Staking details</p>
+                    <div className="form-row">
+                      <div className="form-group col">
+                        <label className="fs-5">Plan Name</label>
+                        <div className="input-group">
+                          <input
+                            name="planname"
+                            type="text"
+                            className={`form-control ${errors.planname ? 'is-invalid' : ''}`}
+                            {...register('planname')}
+                            placeholder="Enter plan name"
+                          />
+                          <span className="input-group-text rounded-end-3">
+                            <MdOutlineDriveFileRenameOutline />
+                          </span>
+                          <div className="invalid-feedback">{errors?.planname?.message}</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <label className="fs-5">Month</label>
+                    <div className="input-group">
+                      <select
+                        name="planmonth"
+                        className={`form-control ${errors.planmonth ? 'is-invalid' : ''}`}
+                        {...register('planmonth')}
+                      >
+                        <option value="">Select Month</option>
+                        <option value="1">1 months</option>
+                        <option value="2">2 months</option>
+                        <option value="3">3 months</option>
+                        <option value="4">4 months</option>
+                        <option value="5">5 months</option>
+                        <option value="6">6 months</option>
+                        <option value="7">7 months</option>
+                        <option value="8">8 months</option>
+                        <option value="9">9 months</option>
+                        <option value="10">10 months</option>
+                        <option value="11">11 months</option>
+                        <option value="12">12 months</option>
+                        
+                      </select>
+                      <span className="input-group-text rounded-end-3">
+                        <MdCalendarMonth />
+                      </span>
+                      <div className="invalid-feedback">{errors?.planmonth?.message}</div>
+                    </div>
+
+                    <label className="fs-5">Interest</label>
+                    <div className="input-group">
+                      <input
+                        name="planinterest"
+                        type="text"
+                        className={`form-control ${errors.planinterest ? 'is-invalid' : ''}`}
+                        {...register('planinterest')}
+                        placeholder="Enter interest"
+                      />
+                      <span className="input-group-text rounded-end-3">
+                        <AiOutlinePercentage />
+                      </span>
+                      <div className="invalid-feedback">{errors?.planinterest?.message}</div>
+                    </div>
+
+                    <div className="form-group d-grid mt-4">
+                      <button type="submit" className="btn btn-primary mr-1">
+                        Approve <BiRightArrowAlt />
+                      </button>
+                    </div>
+                  </form>
+                </CCardBody>
+              </CCard>
+
+              <ToastContainer />
+            </CCardGroup>
+          </CCol>
+        </CRow>
+      </CContainer>
+    </div>
+  );
+};
+
+export default Addstaking;
+
+
+
+STAKIN PLAN LIST FOR ADMIN---->
+import React from 'react'
+import DataTable from 'react-data-table-component';
+import { useNavigate } from 'react-router-dom';
+import { usePlanDataQuery } from 'src/appstore_admin/service_admin/apiquery_admin';
+
+
+
+    const Stakingplanlist = () => {
+    const navigate = useNavigate();
+    const { isLoading, data, isSuccess, isError } = usePlanDataQuery();
+    const handleEdit = (id) => {
+        navigate(`/planlist/${id}`);
+      
+      };
+
+
+
+      const columns = [
+        {
+          id: 1,
+          name: "S.NO",
+          selector: (row, index) => index + 1,
+          reorder: true
+        },
+        {
+          id: 2,
+          name: "PLAN NAME",
+          selector: (row) => row.planname,
+          sortable: true,
+          reorder: true
+        },
+        {
+          id: 3,
+          name: "MONTHS",
+          selector: (row) => `${row.planmonth} months`,
+          sortable: true,
+          reorder: true
+        },
+        {
+          id: 4,
+          name: "INTEREST %",
+          selector: (row) => `${row.planinterest} %`,
+          sortable: true,
+          reorder: true
+        },
+        {
+            id: 5,
+            name: 'EDIT',
+            cell: (row) => (
+              <button className='btn btn-warning' onClick={()=>{handleEdit(row._id)}}>
+                Edit
+              </button>
+            ),
+            allowOverflow: true,
+            button: true,
+          },
+        
+      ];
+    
+
+
+  
+    let handleData;
+    if (isLoading) {
+      handleData = <p>Loading...</p>;
+    }
+    if (isError) {
+      handleData = <p>There is an error in staking plan list</p>;
+    }
+  
+    if (isSuccess) {
+      handleData = (
+        <DataTable
+          title='STAKING PLAN_LIST'
+          columns={columns}
+          data={data.getAllplan}
+          defaultSortFieldId={1}
+          pagination
+        />
+      );
+    }
+
+
+
+
+  
+  
+  
+    return (
+      <div className='container-fluid'>
+        <div className='row'>
+          <div className='col-md-12 table table-primary table-striped'>{handleData}</div>
+        </div>
+      </div>
+    );
+  };
+  
+  export default Stakingplanlist;
+
+UPDATE STAKING PLAN ADMIN--->
+
+import React, { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { ToastContainer, toast } from 'react-toastify';
+import * as yup from 'yup';
+import { BiRightArrowAlt } from 'react-icons/bi';
+import { MdOutlinePublishedWithChanges } from "react-icons/md";
+import { MdCalendarMonth } from "react-icons/md";
+import { AiOutlinePercentage } from "react-icons/ai";
+import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
+
+
+import {
+  CButton,
+  CCard,
+  CCardBody,
+  CCardGroup,
+  CCol,
+  CContainer,
+  CFormInput,
+  CInputGroup,
+  CInputGroupText,
+  CRow,
+} from '@coreui/react';
+import { useGetplanMutation, useUpdateplanMutation } from 'src/appstore_admin/service_admin/apiquery_admin';
+
+
+const schema = yup.object().shape({
+  planname: yup
+    .string()
+    .required('Plan Name is required.')
+    .min(3, 'Minimum 3 characters are allowed.')
+    .max(15, 'Name has reached the maximum limit!')
+    .matches(/^[A-Z -]+$/, 'Enter a valid name only'),
+  planmonth: yup
+    .string()
+    .required('Month is required.')
+    .matches(/^[0-9 -]+$/, 'Enter a valid amount'),
+    planinterest: yup
+    .string()
+    .required('Enter interest amount')
+    .matches(/^[0-9]+(\.[0-9]+)?$/, 'Enter a valid amount'),
+
+});
+
+const Updatestaking = () => {
+  const adminId = localStorage.getItem('AdminId');
+  const navigate = useNavigate();
+  const{id}=useParams()
+  const [handleedit]=useGetplanMutation()
+  const [handleupdate]=useUpdateplanMutation()
+
+  useEffect(() => {
+    const fetchdata = async () => {
+        try {
+            let result = await handleedit({ id, adminId})
+            console.log(result);
+            
+            if (result.error) {
+                console.log(result.error.data.error,);
+                toast.error(result.error.data.error, {
+                    position: toast.POSITION.TOP_CENTER
+                })
+            }
+
+            if (result.data) {
+                let handleData = result.data.plandata
+                reset({ planname: handleData.planname, planmonth: handleData.planmonth, planinterest: handleData.planinterest })
+
+            }
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    fetchdata()
+}, [id])
+    
+
+  const {
+    register,handleSubmit,reset,
+    formState: { errors }, } = useForm({
+    resolver: yupResolver(schema),
+    mode: 'all',
+  });
+
+  const onSubmit = async (data) => {
+    const response=await handleupdate({data,adminId,planid:id})
+
+    try {
+        if (response.error) {
+            toast.error(response.error.data.message)
+          } else {
+            toast.success(response.data.message, {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose:false
+            });
+            
+            setTimeout(() => {
+                navigate('/dashboard')  
+            }, 2500);
+          }  
+    
+     }
+    catch (error) {
+        console.log(error.message);
+    }
+
+  };
+
+  return (
+    <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+      <CContainer>
+        <CRow className="justify-content-center">
+          <CCol md={9}>
+            <CCardGroup>
+              <CCard className="p-4">
+                <CCardBody>
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <h2 className="text-primary">
+                      Update Staking Plan <MdOutlinePublishedWithChanges />
+                    </h2>
+                    <p className="text-primary input-group-text">Staking details</p>
+                    <div className="form-row">
+                      <div className="form-group col">
+                        <label className="fs-5">Plan Name</label>
+                        <div className="input-group">
+                          <input
+                            name="planname"
+                            type="text"
+                            className={`form-control ${errors.planname ? 'is-invalid' : ''}`}
+                            {...register('planname')}
+                            placeholder="Enter plan name"
+                          />
+                          <span className="input-group-text rounded-end-3">
+                            <MdOutlineDriveFileRenameOutline />
+                          </span>
+                          <div className="invalid-feedback">{errors?.planname?.message}</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <label className="fs-5">Month</label>
+                    <div className="input-group">
+                      <select
+                        name="planmonth"
+                        className={`form-control ${errors.planmonth ? 'is-invalid' : ''}`}
+                        {...register('planmonth')}
+                      >
+                        <option value="">Select Month</option>
+                        <option value="1">1 months</option>
+                        <option value="2">2 months</option>
+                        <option value="3">3 months</option>
+                        <option value="4">4 months</option>
+                        <option value="5">5 months</option>
+                        <option value="6">6 months</option>
+                        <option value="7">7 months</option>
+                        <option value="8">8 months</option>
+                        <option value="9">9 months</option>
+                        <option value="10">10 months</option>
+                        <option value="11">11 months</option>
+                        <option value="12">12 months</option>
+                        
+                      </select>
+                      <span className="input-group-text rounded-end-3">
+                        <MdCalendarMonth />
+                      </span>
+                      <div className="invalid-feedback">{errors?.planmonth?.message}</div>
+                    </div>
+
+                    <label className="fs-5">Interest</label>
+                    <div className="input-group">
+                      <input
+                        name="planinterest"
+                        type="text"
+                        className={`form-control ${errors.planinterest ? 'is-invalid' : ''}`}
+                        {...register('planinterest')}
+                        placeholder="Enter interest"
+                      />
+                      <span className="input-group-text rounded-end-3">
+                        <AiOutlinePercentage />
+                      </span>
+                      <div className="invalid-feedback">{errors?.planinterest?.message}</div>
+                    </div>
+
+                    <div className="form-group d-grid mt-4">
+                      <button type="submit" className="btn btn-primary mr-1">
+                        Approve <BiRightArrowAlt />
+                      </button>
+                    </div>
+                  </form>
+                </CCardBody>
+              </CCard>
+
+              <ToastContainer />
+            </CCardGroup>
+          </CCol>
+        </CRow>
+      </CContainer>
+    </div>
+  );
+};
+
+export default Updatestaking;
+///////////////////////////////////////////////////////////////////////////////////////////
+backend----> routes
+
+router.post('/stakingplan',adminstakingplancontrol.handlestaking)
+router.get('/planlist',adminstakingplancontrol.handleplan )
+router.post('/getplan',adminstakingplancontrol.handlegetplan)
+router.post('/updateplan',adminstakingplancontrol.handleupdate)
+ ...........................................
+ const adminschema=require('../modelsadmin/adminschema');
+const stakingschema = require('../modelsadmin/stakingschema');
+const Stakingschema=require('../modelsadmin/stakingschema')
+
+
+exports.handlestaking = async (req, res) => {
+    const{planname, planmonth, planinterest }=req.body.data;
+    const id=req.body.id;
+    const existadmin = await adminschema.findOne({ _id: id });
+    const existplanname=await stakingschema.findOne({ planname})
+    const existsplan = await Stakingschema.findOne({ planname,planmonth,planinterest});
+    try{
+        if (!existadmin) {
+            return res.status(400).json({ message: 'User not found!' });
+        }else if(existplanname){
+            return res.status(400).json({ message: 'plan name is already exists!' });
+        }
+        else if(existsplan){
+            return res.status(400).json({ message: 'plan is already exists!' });
+        }else {
+            let planlist = {
+                planname, planmonth, planinterest
+            };
+            await Stakingschema.create(planlist);
+            res.status(200).json({ message: 'Plan added successfully' });
+            console.log('Data added to the DB');
+        }
+
+    }catch(error){
+        console.log(error,'error in adding plan');
+    }  
+
+}
+
+
+
+exports.handleplan= async (req,res)=>{
+    try {
+        const getAllplan = await Stakingschema.find()
+        res.status(200).json({ message: 'data recieved successfully', getAllplan })
+    }catch (error) {
+        res.status(401).json({ message: 'error in planlist ' })
+    }
+}
+
+
+
+exports.handlegetplan=async (req,res)=>{
+    const{id,adminId }=req.body
+    const existadmin = await adminschema.findOne({ _id: adminId });
+    const plandata= await Stakingschema.findOne({_id:id})
+    try{
+        if(!existadmin){
+            return res.status(400).json({ message: 'User not found!' });
+        }
+        else{
+            res.status(200).json({ message: 'data recieved successfully', plandata })
+        }
+
+    }catch(error){
+        console.log(error,"error in edit plan");
+    }
+
+}
+
+
+exports.handleupdate= async (req,res)=>{
+    const{planname,planmonth,planinterest }=req.body.data
+    const {adminId,planid}=req.body
+    const existadmin = await adminschema.findOne({ _id: adminId });
+    const plandata= await Stakingschema.findOne({_id:planid})
+    const existplanname=await stakingschema.findOne({ planname})
+    const existsplan = await Stakingschema.findOne({ planname,planmonth,planinterest});
+    try{
+        if(!existadmin){
+            return res.status(400).json({ message: 'User not found!' });
+        }else if(!plandata){
+            return res.status(400).json({ message: 'Plan not found!' });
+        }else if(existplanname){
+            return res.status(400).json({ message: 'plan name is already exists!' });
+        }else if(existsplan){
+            return res.status(400).json({ message: 'plan is already exists!' });
+        }else{
+            await Stakingschema.updateOne({_id:planid},{
+                $set:{planname,planmonth,planinterest}
+            })
+            return res.status(200).json({message:'Update sucessfully!'});
+    
+        }
+
+    }catch(error){
+        console.log(error,"error in update plan");
+    }
+}
+ 
+ /////////////////////////////////////////////////////////////////////////////////////
+ 
+ FRONTEND RTK 
+  planData: builder.query({
+            query: () => ({
+                method: 'GET',
+                url:'/admin/planlist'
+            }),
+            providesTags: ['Task'], }),
+
+            
+                
+        buyplan: builder.mutation({
+            query: (body) => ({
+              url: '/user/buyplan', 
+              method: "POST",
+              body:body
+            }),
+            invalidatesTags: ['Task'], 
+          }),
+
+          stakeplan: builder.mutation({
+            query: (body) => ({
+              url: '/user/stakeplan', 
+              method: "POST",
+              body:body
+            }),
+            invalidatesTags: ['Task'], 
+          }),
+  
+ 
+ 
+ 
+ ////////////////////////////////////////////////////////////////////////////
+  frontend---> buyplan
+  import React, { Component, Fragment, useState, useRef, useEffect, createRef  } from "react";
+import "../style.scss";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import ProgressBar from "./Progress/Progress";
+import logoImg from '../assets/images/logonew.png';
+import homeImg from '../assets/images/home-2.svg';
+import menu3ftImg from '../assets/images/menu-3.svg';
+import closeImg from '../assets/images/close.svg'
+import cardImage from '../assets/images/logonew.png'
+import { usePlanDataQuery } from "../appstore/service/apiquery";
+
+
+const Newbuyplan = (props) =>
+{   
+    const { isLoading, data, isSuccess, isError }= usePlanDataQuery()
+    const [state, setState] = useState(10);
+    const [isActive, setActive] = useState(false);
+    let history=useHistory()
+        const SidemenuToggleClass = () => {
+          setActive(!isActive); 
+        };
+
+        if (isLoading) {
+            return <p>Loading...</p>;
+          }
+        
+          if (isError) {
+            return <p>Error loading data</p>;
+          }
+          let plan;
+          if (isSuccess) {
+            plan=data.getAllplan
+        }
+        
+  const handleBuyNow = (planId) => {
+      history.push(`/newplan/${planId}`)
+
+  };
+
+
+return (
+<Fragment>
+<div className="pgVwContFt">
+ 				<div className="pgVwContFtRl">							
+				<ProgressBar width={state} />	
+					<div className="container-fluid">
+					  	<div className="row align-items-center justify-content-between pgFtR">
+					  		<div className="col-4 col-sm-4 ftLogo">
+                               <Link to="/">
+ 					  				<img src={logoImg} alt="logo" />
+ 					  			</Link>
+ 					  		</div>
+
+ 					  		<div className="col-4 col-sm-4">
+ 					  			<div className="ftMenu">
+ 					  				<a href="#" className="btn btn-6060 btn-menu">
+ 					  					<img className="yt-2" src={homeImg} alt="home-2" />
+ 					  				</a>
+ 					  			</div>
+					  		</div>
+
+ 					  		<div className="col-4 col-sm-4">
+                               <div className="ftMr">
+								  	<button className="btn btnSb" type="button"  onClick={SidemenuToggleClass}>
+								    	<img src={menu3ftImg} alt="menu-3 " />
+ 								    	<span className="ml-2">MENU</span>
+ 								  	</button>
+ 							  	</div>
+ 					  		</div>
+ 					  	</div>
+ 				  	</div>
+ 				</div>
+ 			</div>
+       <div className={isActive ? "sibeBar sbOpen" : "sibeBar"}>
+                 <div className="sbMenu">
+                     <div className="sbClose">
+                         <button type="button" className="btn btnIc btnSbClose"  onClick={SidemenuToggleClass}>
+                             <img src={closeImg} alt="close" />
+                        </button>
+                    </div>
+                     <ul>
+                
+                         <li>
+                             <Link to="/liquidity">
+                                 <span>LIQUIDITY</span>
+                                 <span>02</span>
+                             </Link>
+                         </li>
+                         <li>
+                             <Link to="/farms">
+                                 <span>FARMING</span>
+                                <span>03</span>
+                             </Link>
+                       </li>
+                        
+                    </ul>
+                </div>
+           </div>
+			<div className={isActive ? "sibeBarOl sbOpen" : "sibeBarOl"}></div>
+
+    
+
+   <section className='loginregister'>
+    <h1 className=" text-center"> Staking Plan</h1>
+    <div className="row row-cols-1 row-cols-md-2 g-4">
+  {plan.map((plandata) => (
+    <div className="col" key={plandata._id}>
+      <div className="card w-60 border-primary"  style={{ backgroundImage: 'linear-gradient(to right, #fa709a 0%, #fee140 100%)' }}>
+        <div className="card-body">
+          <h5 className="card-title">{plandata.planname}</h5>
+          <p className="card-text">
+            Staking is also a way to contribute to the security and efficiency of the blockchain projects you support.
+          </p>
+          <div className="input-group">
+            <p className="input-group-text ">{plandata.planmonth} MONTHS</p>
+            <p className="input-group-text">{plandata.planinterest} %</p>
+          </div>
+          <button className=" mt-2 btn btn-warning" key={plandata._id}  onClick={() => {handleBuyNow(plandata._id); }}>Buy Now!</button>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+      
+   </section>
+</Fragment>
+);
+}
+export default Newbuyplan;
+////////////////////////////////////////////////////
+after selected silver plan---->
+
+import React, { Component, Fragment, useState, useRef, useEffect, createRef  } from "react";
+import "../style.scss";
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import { Link, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import kycup from '../assets/images/kyupload.svg';
+import camera from '../assets/images/camera.svg';
+import ProgressBar from "./Progress/Progress";
+import logoImg from '../assets/images/logonew.png';
+import homeImg from '../assets/images/home-2.svg';
+import menu3ftImg from '../assets/images/menu-3.svg';
+import closeImg from '../assets/images/close.svg';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+import { useBuyplanMutation, useStakeplanMutation } from "../appstore/service/apiquery";
+const Buyplan = (props) =>
+{   
+const [state, setState] = useState(10);
+const [isActive, setActive] = useState(false);
+const SidemenuToggleClass = () => {
+setActive(!isActive); 
+};
+const {id}= useParams()
+const [handlebuyplan]=useBuyplanMutation()
+const [handlestake]=useStakeplanMutation()
+const userId=localStorage.getItem("loginuserid")
+const [name, setname]=useState(" ")
+const [month, setmonth]=useState(" ")
+const [interest, setinterest]=useState(" ")
+let displayname;
+let displaymonth;
+let dispalyinterest;
+
+useEffect(() => {
+    async function updateplan() {
+        const response = await handlebuyplan({planid:id,storage:userId})
+            console.log(response.data);
+        try {
+            
+            if (response.error) {
+                toast.error(response.error.data.message, {
+                    position: toast.POSITION.TOP_CENTER,
+                });
+            }else{
+                displayname=response.data.planname;
+                displaymonth=response.data.planmonth;
+                dispalyinterest=response.data.planinterest;
+                setname(displayname)
+                setmonth(displaymonth)
+                setinterest(dispalyinterest)
+
+            }
+          
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    updateplan()
+}, [])
+
+const validationSchema = Yup.object().shape({
+    Amount: Yup.string()
+      .required('Amount cannot be empty.')
+      .max(15, 'Amount has reached the maximum limit!')
+      .matches(/^\d+(\.\d+)?$/, 'Enter a valid number'),
+    TermsOfService: Yup.boolean().oneOf([true], 'You must agree to the Terms of Service'),
+  });
+  
+const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(validationSchema),
+    mode: 'all',
+  });
+  
+
+async function onSubmit(data) {
+    const response=await handlestake({data,planid:id,userId:userId})
+     
+    
+}
+
+
+
+
+
+return (
+<Fragment>
+   <div className="pgVwContFt">
+      <div className="pgVwContFtRl">
+         <ProgressBar width={state} />
+         <div className="container-fluid">
+            <div className="row align-items-center justify-content-between pgFtR">
+               <div className="col-4 col-sm-4 ftLogo">
+                  <Link to="/">
+                  <img src={logoImg} alt="logo" />
+                  </Link>
+               </div>
+               <div className="col-4 col-sm-4">
+                  <div className="ftMenu">
+                     <a href="#" className="btn btn-6060 btn-menu">
+                     <img className="yt-2" src={homeImg} alt="home-2" />
+                     </a>
+                  </div>
+               </div>
+               <div className="col-4 col-sm-4">
+                  <div className="ftMr">
+                     <button className="btn btnSb" type="button"  onClick={SidemenuToggleClass}>
+                     <img src={menu3ftImg} alt="menu-3 " />
+                     <span className="ml-2">MENU</span>
+                     </button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div className={isActive ? "sibeBar sbOpen" : "sibeBar"}>
+   <div className="sbMenu">
+      <div className="sbClose">
+         <button type="button" className="btn btnIc btnSbClose"  onClick={SidemenuToggleClass}>
+         <img src={closeImg} alt="close" />
+         </button>
+      </div>
+      <ul>
+     
+         <li>
+            <Link to="/liquidity">
+            <span>LIQUIDITY</span>
+            <span>02</span>
+            </Link>
+         </li>
+         <li>
+            <Link to="/farms">
+            <span>FARMING</span>
+            <span>03</span>
+            </Link>
+         </li>
+       
+      </ul>
+   </div>
+   </div>
+   <div className={isActive ? "sibeBarOl sbOpen" : "sibeBarOl"}></div>
+   <section className='buyplan-sec'>
+      <div className='container'>
+         <h2>BuyPlan</h2>
+         <div className="buyplanmain">
+         <form className=" " onSubmit={handleSubmit(onSubmit)}>
+            <div class="row">
+               <div className="col-lg-6">
+                  <div className="buypalnbox">
+                    <h3>{name}</h3>
+
+                    <div className="row mt-5">
+                        <div className="col-lg-8">
+                            <div className="investcnt">
+                                <p>Amount to Invest (USDT) *</p>
+
+                                <input
+                                    name="Amount"
+                                    placeholder="0.00"
+                                    type="text"
+                                    {...register('Amount')}
+                                    className={`form-control ${errors.Amount ? 'is-invalid' : ''
+                                        }`}
+                                />
+                                <div className="invalid-feedback">
+                                    {errors.Amount?.message}
+                                </div>
+
+                            </div>
+                        </div>
+                        <div className="col-lg-4">
+                            <div className="investcnt">
+                                <p>Balance: <span>0.5471</span> </p>
+
+                                <button>USDT</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="row mt-4">
+                        <div className="col-lg-12">
+                            <div className="investcnt">
+                                <p>Duration</p>
+
+                                <input type="text" value={`${month} Months`} />
+
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div className="mt-4">
+                        <FormGroup check>
+                            <Label check>
+                                <Input type="checkbox" />Yes, I want Vacation & Christmas Money
+                            </Label>
+                        </FormGroup>
+                    </div>
+
+                    <div className="row mt-4">
+                        <div className="col-lg-8">
+                            <div className="investcnt">
+                                <p>Fees</p>
+                            </div>
+                        </div>
+                        <div className="col-lg-4">
+                            <div className="investcnt text-right">
+                                <p>0.5 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               </div>
+               <div className="col-lg-6">
+                  <div className="buypalnbox">
+                    <h3>Summary</h3>
+
+                    <div className="row mt-5">
+                        <div className="col-lg-8">
+                            <div className="investcnt">
+                                <p>Up to APR% (Get Interest)</p>
+                            </div>
+                        </div>
+                        <div className="col-lg-4">
+                            <div className="investcnt text-right">
+                                <p>1000.00 USDT</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-lg-8">
+                            <div className="investcnt">
+                                <p>Fees</p>
+                            </div>
+                        </div>
+                        <div className="col-lg-4">
+                            <div className="investcnt text-right">
+                                <p>0.5 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-lg-8">
+                            <div className="investcnt">
+                                <p>Investment Duration</p>
+                            </div>
+                        </div>
+                        <div className="col-lg-4">
+                            <div className="investcnt text-right">
+                                <p>{month} Months</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="savingbook">
+
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <div className="investcnt">
+                                <p>Cashflow Saving Book</p>
+                                <p>Vacation Money 50.00 USDT to claim</p>
+                                <p>Christmas Money 50.00 USDT to claim</p>
+
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    </div>
+
+                    <div className="mt-4">
+                  <FormGroup check>
+                   <label check>
+                       <Input
+                       type="checkbox"
+                       {...register('TermsOfService')}
+                        />
+                    I agree to the Terms of Service
+                    </label>
+                 </FormGroup>
+                {errors.TermsOfService && (
+                           <div className="invalid-feedback">
+                             {errors.TermsOfService.message}
+                            </div>)}
+                     </div>
+
+                    <div className="mt-4">
+                        <button className="btn btn-gr mx-auto mb-2 d-block">Confirm</button>
+                    </div>
+
+              <ToastContainer/>
+                </div>
+               </div>
+            </div>
+            </form>
+         </div>
+      </div>
+   </section>
+</Fragment>
+);
+}
+export default Buyplan;
+
+///////////////////////////////////////////////////////////////////////////////////////////
+SCHEMA FOR STAKINGHISTORY
+
+const mongoose = require('mongoose');
+
+const StakingHistory=new mongoose.Schema({
+    PlanName:{
+        type:String
+    },
+    PlanAmount:{
+        type:Number
+    },
+    amountInterest:{
+        type:Number
+    },  
+    user_Id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+        required: true
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now()
+    },
+})
+
+module.exports=planmodel=mongoose.model('StakingHistory',StakingHistory)
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ROUTES-->>>
+router.post('/buyplan',stakingcontroller.handlebuyplan)
+router.post('/stakeplan',stakingcontroller.handlestake)
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+BACKEND
+const userschema = require('../models/userschema');
+const liqudityschema = require('../modelsadmin/liqudityschema');
+const stakingschema = require('../modelsadmin/stakingschema');
+const stakinghistory=require('../models/StakingHistory')
+
+
+
+
+exports.handlebuyplan=async(req,res)=>{
+    const{ planid, storage}=req.body
+    const userexists = await userschema.findOne({ _id:storage })
+    const planexists=await  stakingschema.findOne({_id:planid})
+try{
+     if (!userexists){
+    return res.status(401).json({ message:' user not found'});
+  }
+  else if(!planexists){
+    return res.status(401).json({ message:'plan not found'});
+  }else{
+    res.status(200).json(planexists)
+  }
+
+}catch(error){
+    console.log(error);
+}
+   
+    }
+
+
+
+exports.handlestake = async (req, res) => {
+  const { Amount } = req.body.data;
+  const planid = req.body.planid;
+  const id = req.body.userId;
+
+  try {
+    const userexists = await userschema.findOne({ _id: id });
+    const planverify = await stakingschema.findOne({ _id: planid });
+    const amountVerify= await liqudityschema.findOne({user_Id:id})
+
+
+    if (!userexists || !planverify) {
+      return res.status(404).json({ message: 'User or staking plan not found' });
+    } else if(amountVerify.Lptokens <=Amount){
+      return res.status(404).json({ message: 'Insufficient balance' });
+    }
+
+    const { planmonth, planinterest, planname } = planverify;
+    const interestRate = planinterest / 100;
+    const monthlyInterest = (Amount * interestRate) / planmonth;
+    await stakinghistory.create({
+      user_Id: id,
+      PlanName:planname,
+      PlanAmount:Amount,
+     amountInterest:monthlyInterest,
+    });
+   await liqudityschema.updateOne({user_Id:id}, {$inc:{Lptokens:-Amount}})    
+    res.status(200).json({  message: 'Staking successful',});
+  } catch (error) {
+    console.error('Error in staking:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+
+import React, { Component, Fragment, useState, useRef, useEffect, createRef  } from "react";
+import "../style.scss";
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import { Link, useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import kycup from '../assets/images/kyupload.svg';
+import camera from '../assets/images/camera.svg';
+import ProgressBar from "./Progress/Progress";
+import logoImg from '../assets/images/logonew.png';
+import homeImg from '../assets/images/home-2.svg';
+import menu3ftImg from '../assets/images/menu-3.svg';
+import closeImg from '../assets/images/close.svg';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+import { useBuyplanMutation, useLiqudityDataQuery, useStakeplanMutation } from "../appstore/service/apiquery";
+const Buyplan = (props) =>
+{   
+const [state, setState] = useState(10);
+const [isActive, setActive] = useState(false);
+const SidemenuToggleClass = () => {
+setActive(!isActive); 
+};
+const history=useHistory()
+const userId=localStorage.getItem("loginuserid")
+const {id}= useParams()
+const [handlebuyplan]=useBuyplanMutation()
+const [handlestake]=useStakeplanMutation()
+const { isLoading, data, isSuccess, isError }=useLiqudityDataQuery({id:userId})
+const [name, setname]=useState(" ")
+const [month, setmonth]=useState(" ")
+const [interest, setinterest]=useState(" ")
+const [value, setvalue]=useState('')
+
+let displayname;
+let displaymonth;
+let dispalyinterest;
+
+useEffect(() => {
+    async function updateplan() {
+        const response = await handlebuyplan({planid:id,storage:userId})
+            console.log(response.data);
+        try {
+            
+            if (response.error) {
+                toast.error(response.error.data.message, {
+                    position: toast.POSITION.TOP_CENTER,
+                });
+            }else{
+                displayname=response.data.planname;
+                displaymonth=response.data.planmonth;
+                dispalyinterest=response.data.planinterest;
+                setname(displayname)
+                setmonth(displaymonth)
+                setinterest(dispalyinterest)
+
+            }
+          
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    updateplan()
+}, [])
+
+
+const validationSchema = Yup.object().shape({
+    Amount: Yup.string()
+      .required('Amount cannot be empty.')
+      .max(15, 'Amount has reached the maximum limit!')
+      .matches(/^\d+(\.\d+)?$/, 'Enter a valid number'),
+    TermsOfService: Yup.boolean().oneOf([true], 'You must agree to the Terms of Service'),
+  });
+  
+const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(validationSchema),
+    mode: 'all',
+  });
+  
+
+async function onSubmit(data) {
+    const response=await handlestake({data,planid:id,userId:userId})
+    try {
+        if (response.error) {
+            toast.error(response.error.data.message)
+          } else {
+            toast.success(response.data.message, {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose:false
+            });
+            setTimeout(() => {
+                history.push('/profilenew')  
+            },4000);
+          } 
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+     
+    
+}
+if (isLoading) {
+    return <p>Loading...</p>;
+}
+
+if (isError) {
+    return <p>Error loading data</p>;
+}
+let lpvalue;
+if (isSuccess) {
+   lpvalue=data.lpUser.Lptokens
+}
+
+const readIntrest=(event)=>{
+    let annualinterest=event.target.value
+    const interestRate = interest / 100;
+    const monthlyInterest = (annualinterest * interestRate) / month;
+    setvalue(monthlyInterest);
+
+}
+
+
+return (
+<Fragment>
+   <div className="pgVwContFt">
+ 
+      <div className="pgVwContFtRl">
+         <ProgressBar width={state} />
+         <div className="container-fluid">
+            <div className="row align-items-center justify-content-between pgFtR">
+               <div className="col-4 col-sm-4 ftLogo">
+                  <Link to="/">
+                  <img src={logoImg} alt="logo" />
+                  </Link>
+               </div>
+               <div className="col-4 col-sm-4">
+                  <div className="ftMenu">
+                     <a href="#" className="btn btn-6060 btn-menu">
+                     <img className="yt-2" src={homeImg} alt="home-2" />
+                     </a>
+                  </div>
+               </div>
+               <div className="col-4 col-sm-4">
+                  <div className="ftMr">
+                     <button className="btn btnSb" type="button"  onClick={SidemenuToggleClass}>
+                     <img src={menu3ftImg} alt="menu-3 " />
+                     <span className="ml-2">MENU</span>
+                     </button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div className={isActive ? "sibeBar sbOpen" : "sibeBar"}>
+   <div className="sbMenu">
+      <div className="sbClose">
+         <button type="button" className="btn btnIc btnSbClose"  onClick={SidemenuToggleClass}>
+         <img src={closeImg} alt="close" />
+         </button>
+      </div>
+      <ul>
+     
+         <li>
+            <Link to="/liquidity">
+            <span>LIQUIDITY</span>
+            <span>02</span>
+            </Link>
+         </li>
+         <li>
+            <Link to="/farms">
+            <span>FARMING</span>
+            <span>03</span>
+            </Link>
+         </li>
+       
+      </ul>
+   </div>
+   </div>
+   <div className={isActive ? "sibeBarOl sbOpen" : "sibeBarOl"}></div>
+   <section className='buyplan-sec'>
+      <div className='container'>
+         <h2>BuyPlan</h2>
+         <div className="buyplanmain">
+         <form className=" " onSubmit={handleSubmit(onSubmit)}>
+            <div class="row">
+               <div className="col-lg-6">
+                  <div className="buypalnbox">
+                    <h3 className=" text-bg-warning">{name}</h3>
+
+                    <div className="row mt-5">
+                        <div className="col-lg-8">
+                            <div className="investcnt">
+                                <p>Amount to Invest (USDT) *</p>
+
+                                <input
+                                    name="Amount"
+                                    placeholder="0.00"
+                                    type="text"
+                                    {...register('Amount')}
+                                    className={`form-control ${errors.Amount ? 'is-invalid' : ''
+                                        }`}
+                                        onChange={(e)=>readIntrest(e)}
+                                    
+                               />
+                                <div className="invalid-feedback">
+                                    {errors.Amount?.message}
+                                </div>
+                               
+                            </div>
+                        </div>
+                        <div >
+                            <div className="investcnt">
+                                <p className=" text-warning">Balance: <span>{lpvalue} LP</span> </p>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="row mt-4">
+                        <div className="col-lg-12">
+                            <div className="investcnt">
+                                <p>Duration</p>
+
+                                <input type="text" value={`${month} Months`} />
+
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div className="row mt-4">
+                        <div className="col-lg-8">
+                            <div className="investcnt">
+                                <p>Fees</p>
+                            </div>
+                        </div>
+                        <div className="col-lg-4">
+                            <div className="investcnt text-right">
+                                <p>0.001 LP</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               </div>
+               <div className="col-lg-6">
+                  <div className="buypalnbox">
+                    <h3>Summary</h3>
+
+                    <div className="row mt-5">
+                        <div className="col-lg-8">
+                            <div className="investcnt">
+                                <p>Up to APR% (Get Interest)</p>
+                            </div>
+                        </div>
+                        
+                                <p className=" text-success">{value} LP</p>
+                            
+                    </div>
+                    <div className="row">
+                        <div className="col-lg-8">
+                            <div className="investcnt">
+                                <p>Fees</p>
+                            </div>
+                        </div>
+                        <div className="col-lg-4">
+                            <div className="investcnt text-right">
+                                <p>0.001 LP</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-lg-8">
+                            <div className="investcnt">
+                                <p>Investment Duration</p>
+                            </div>
+                        </div>
+                        <div className="col-lg-4">
+                            <div className="investcnt text-right">
+                                <p>{month} Months</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-4">
+                  <FormGroup check>
+                   <Label check>
+                       <Input
+                       type="checkbox"
+                       {...register('TermsOfService')}
+                        />
+                    I agree to the Terms of Service
+                    </Label>
+                 </FormGroup>
+                {errors.TermsOfService && (
+                           <div className="invalid-feedback">
+                             {errors.TermsOfService.message}
+                            </div>)}
+                     </div>
+
+
+
+                    <div className="mt-4">
+                        <button className="btn btn-gr mx-auto mb-2 d-block">Confirm</button>
+                    </div>
+
+              <ToastContainer/>
+                </div>
+               </div>
+            </div>
+            </form>
+         </div>
+      </div>
+   </section>
+</Fragment>
+);
+}
+export default Buyplan;
+
+/////////////////////////////////
+ROUTES-->
+router.post('/buyplan',stakingcontroller.handlebuyplan)
+router.post('/stakeplan',stakingcontroller.handlestake)
+
+
+
+////////////BACKEND
+const userschema = require('../models/userschema');
+const liqudityschema = require('../modelsadmin/liqudityschema');
+const stakingschema = require('../modelsadmin/stakingschema');
+const stakinghistory=require('../models/StakingHistory')
+
+
+
+
+exports.handlebuyplan=async(req,res)=>{
+    const{ planid, storage}=req.body
+    const userexists = await userschema.findOne({ _id:storage })
+    const planexists=await  stakingschema.findOne({_id:planid})
+try{
+     if (!userexists){
+    return res.status(401).json({ message:' user not found'});
+  }
+  else if(!planexists){
+    return res.status(401).json({ message:'plan not found'});
+  }else{
+    res.status(200).json(planexists)
+  }
+
+}catch(error){
+    console.log(error);
+} 
+    }
+
+
+
+exports.handlestake = async (req, res) => {
+  const { Amount } = req.body.data;
+  const planid = req.body.planid;
+  const id = req.body.userId;
+
+  try {
+    const userexists = await userschema.findOne({ _id: id });
+    const planverify = await stakingschema.findOne({ _id: planid });
+    const amountVerify= await liqudityschema.findOne({user_Id:id})
+
+
+    if (!userexists || !planverify) {
+      return res.status(404).json({ message: 'User or staking plan not found' });
+    } else if(amountVerify.Lptokens <=Amount){
+      return res.status(404).json({ message: 'Insufficient balance' });
+    }
+
+    const { planmonth, planinterest, planname } = planverify;
+    const interestRate = planinterest / 100;
+    const monthlyInterest = (Amount * interestRate) / planmonth;
+    await stakinghistory.create({
+      user_Id: id,
+      PlanName:planname,
+      PlanAmount:Amount,
+     amountInterest:monthlyInterest,
+    });
+   await liqudityschema.updateOne({user_Id:id}, {$inc:{Lptokens:-Amount}})    
+    res.status(200).json({  message: 'Staking successful',});
+  } catch (error) {
+    console.error('Error in staking:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+    
+
+
